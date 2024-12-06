@@ -1,12 +1,25 @@
 f = open('day3set.txt', 'r')
 data = f.read()
 
+counter = 0
 
-# define something has mul(x,y)
-# look through the string to find things in the form mul(x,y)
-# return the index of that to get the string out of it
-# parse the x and the y out, probably checking to see if they are integers
+def search_for_valid_strings(data):
+    while len(data) > 1:
+        counter = 0
+        x = data.find("mul(") # x is the position of the mul( string bullshit
+        data = data[x:]
+        print(data)
+        comma_index = data.index(",")
+        paren_index = data.index(")")
+        if data[(x+5):comma_index].isdigit() and data[(comma_index + 1):paren_index].isdigit():
+            number1 = int(data[(x+5):comma_index])
+            number2 = int(data[(comma_index + 1):paren_index])
+            k = number1 * number2
+            data = data[:paren_index]
+            counter += k
+    print(counter)
 
-x = data.find("mul")
+search_for_valid_strings(data)
 
-print(x)
+
+
